@@ -18,6 +18,10 @@ public:
 		if (guessNumber == question) {
 			return { true, 3, 0 };
 		}
+		int strikesCnt = getStrikes(guessNumber);
+		if (guessNumber[1] == '3' && guessNumber[2] == '2') {
+			return { false, getStrikes(guessNumber), 2 };
+		}
 		return { false, getStrikes(guessNumber), 0};
 	}
 
