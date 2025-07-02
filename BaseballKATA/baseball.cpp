@@ -18,12 +18,7 @@ public:
 		if (guessNumber == question) {
 			return { true, 3, 0 };
 		}
-		if (guessNumber[0] != question[0]
-			|| guessNumber[1] != question[1]
-			|| guessNumber[2] != question[2]) {
-			return { false, 2, 0 };
-		}
-		return { false, 0, 0 };
+		return { false, getStrikes(guessNumber), 0};
 	}
 
 	void assertIllegalArgument(const std::string& guessNumber)
@@ -47,6 +42,16 @@ public:
 		return (guessNumber[0] == guessNumber[1]
 				|| guessNumber[0] == guessNumber[2]
 				|| guessNumber[1] == guessNumber[2]);
+	}
+
+	int getStrikes(const string& guessNumber){
+		int strikesCnt = 0;
+		for (int num = 0; num < guessNumber.size(); num++) {
+			if (guessNumber[num] == question[num]) {
+				strikesCnt++;
+			}
+		}
+		return strikesCnt;
 	}
 
 private:
