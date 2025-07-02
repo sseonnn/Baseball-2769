@@ -9,7 +9,7 @@ struct GuessResult {
 using namespace std;
 class Baseball {
 public:
-	explicit Baseball(const string& question) 
+	explicit Baseball(const string& question)
 		: question(question) {
 	}
 
@@ -19,10 +19,8 @@ public:
 			return { true, 3, 0 };
 		}
 		int strikesCnt = getStrikes(guessNumber);
-		if (guessNumber[1] == '3' && guessNumber[2] == '2') {
-			return { false, getStrikes(guessNumber), 2 };
-		}
-		return { false, getStrikes(guessNumber), 0};
+		int ballCnt = getBalls(guessNumber);
+		return { false, strikesCnt, ballCnt };
 	}
 
 	void assertIllegalArgument(const std::string& guessNumber)
@@ -44,11 +42,11 @@ public:
 	bool isDuplicateNumber(const std::string& guessNumber)
 	{
 		return (guessNumber[0] == guessNumber[1]
-				|| guessNumber[0] == guessNumber[2]
-				|| guessNumber[1] == guessNumber[2]);
+			|| guessNumber[0] == guessNumber[2]
+			|| guessNumber[1] == guessNumber[2]);
 	}
 
-	int getStrikes(const string& guessNumber){
+	int getStrikes(const string& guessNumber) {
 		int strikesCnt = 0;
 		for (int num = 0; num < guessNumber.size(); num++) {
 			if (guessNumber[num] == question[num]) {
@@ -56,6 +54,19 @@ public:
 			}
 		}
 		return strikesCnt;
+	}
+
+	int getBalls(const string& guessNumber) {
+		int ballCnts = 0;
+		for (int num = 0; num < guessNumber.size(); num++) {
+			if (guessNumber[num] == question[num]) continue;
+			for (int otherNum = 0; otherNum < guessNumber.size(); otherNum++) {
+				if (guessNumber[num] == question[otherNum]) {
+					ballCnts++;
+				}
+			}
+		}
+		return ballCnts;
 	}
 
 private:
