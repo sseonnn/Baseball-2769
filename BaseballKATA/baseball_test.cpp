@@ -19,6 +19,7 @@ TEST_F(BaseballFixture, ThrowExceptionWhenInvalidCase) {
 	Baseball game;
 	assertIllegalArgument("12");
 	assertIllegalArgument("12s");
+	assertIllegalArgument("121");
 }
 
 int main() {
